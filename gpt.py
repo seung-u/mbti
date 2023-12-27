@@ -1,7 +1,7 @@
 from openai import OpenAI
 
 client = OpenAI(
-  api_key= "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",
+  api_key= "",
 )
 
 def detectgenre(data):
