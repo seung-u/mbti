@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Survey Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      input[type="radio"] {
+        margin-right: 5px;
+      }
+
+      input[type="submit"] {
+        display: block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #555;
+      }
+
+      input[type="submit"]:disabled {
+        background-color: #999;
+        cursor: not-allowed;
+      }
+
+      .gap-10 {
+        height: 5px;
+      }
+    </style>
+    <script>
+      function submitForm() {
+        event.preventDefault();
+        var formData = new FormData(document.querySelector("form"));
+
+        // var question1 = document.getElementById("question1").value;
+        // var question2 = document.getElementById("question2").value;
+        // var question3 = document.getElementById("question3").value;
+        // var question4 = document.getElementById("question4").value;
+        // var question5 = document.getElementById("question5").value;
+        // var question6 = document.getElementById("question6").value;
+        fetch("/submit", {
+          method: "POST",
+          body: formData,
+        })
+          .then(function (response) {
+            if (response.ok) {
+              alert("설문이 제출되었습니다.");
+              // 추가적인 작업 수행 가능
+            } else {
+              alert("설문 제출에 실패했습니다.");
+            }
+          })
+          .catch(function (error) {
+            console.error("에러:", error);
+          });
+      }
+
+      function checkForm() {
+        var question1Checked = document.querySelector(
+          'input[name="question1"]:checked'
+        );
+        var question2Checked = document.querySelector(
+          'input[name="question2"]:checked'
+        );
+        var question3Checked = document.querySelector(
+          'input[name="question3"]:checked'
+        );
+        var question4Checked = document.querySelector(
+          'input[name="question4"]:checked'
+        );
+        var question5Checked = document.querySelector(
+          'input[name="question5"]:checked'
+        );
+        var question6Checked = document.querySelector(
+          'input[name="question6"]:checked'
+        );
+        var submitButton = document.getElementById("submitBtn");
+
+        if (
+          question1Checked &&
+          question2Checked &&
+          question3Checked &&
+          question4Checked &&
+          question5Checked &&
+          question6Checked
+        ) {
+          submitButton.disabled = false;
+        } else {
+          submitButton.disabled = true;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1><a href="/">취향을 음악으로</a></h1>
+
+    <form action="/submit" method="POST" onsubmit="submitForm()">
+      <!-- Add your survey questions here -->
+      <label for="question1"
+        >1. 음악을 들을 때 가사보다 멜로디를 더 중요하게 생각하시나요, 아니면 그
+        반대인가요?</label
+      >
+      <div class="gap-10"></div>
+      <label for="question1_option1">
+        <input
+          type="radio"
+          id="question1_option1"
+          name="question1"
+          value="option1"
+          onchange="checkForm()"
+        />가사를 중요하게 생각합니다.</label
+      >
+
+      <label for="question1_option2">
+        <input
+          type="radio"
+          id="question1_option2"
+          name="question1"
+          value="option2"
+          onchange="checkForm()"
+        />멜로디를 중요하게 생각합니다.</label
+      >
+      <div class="gap-10"></div>
+      <label for="question2">2.음악을 듣는 주된 목적이 무엇인가요?</label>
+      <div class="gap-10"></div>
+      <label for="question2_option1">
+        <input
+          type="radio"
+          id="question2_option1"
+          name="question2"
+          value="option1"
+        />집중</label
+      >
+
+      <label for="question2_option1">
+        <input
+          type="radio"
+          id="question2_option1"
+          name="question2"
+          value="option1"
+          onchange="checkForm()"
+        />가사를 중요하게 생각합니다.</label
+      >
+
+      <label for="question2_option2">
+        <input
+          type="radio"
+          id="question2_option2"
+          name="question2"
+          value="option2"
+          onchange="checkForm()"
+        />멜로디를 중요하게 생각합니다.</label
+      >
+      <div class="gap-10"></div>
+      <label for="question3">3.음악을 듣는 주된 목적이 무엇인가요?</label>
+      <div class="gap-10"></div>
+      <label for="question3_option1">
+        <input
+          type="radio"
+          id="question2_option1"
+          name="question3"
+          value="option1"
+          onchange="checkForm()"
+        />집중</label
+      >
+
+      <label for="question3_option2">
+        <input
+          type="radio"
+          id="question3_option2"
+          name="question3"
+          value="option2"
+          onchange="checkForm()"
+        />기분 전환</label
+      >
+      <div class="gap-10"></div>
+      <label for="question4">4.여행을 갈 때 주로 어떤 음악을 듣나요?</label>
+      <div class="gap-10"></div>
+      <label for="question4_option1">
+        <input
+          type="radio"
+          id="question4_option1"
+          name="question4"
+          value="option1"
+          onchange="checkForm()"
+        />활기찬 음악</label
+      >
+
+      <label for="question4_option2">
+        <input
+          type="radio"
+          id="question4_option2"
+          name="question4"
+          value="option2"
+          onchange="checkForm()"
+        />진정되는 음악</label
+      >
+      <div class="gap-10"></div>
+      <label for="question5"
+        >5. 친구들과 함께 있을 때 어떤 종류의 음악을 듣는 것을
+        좋아하시나요?</label
+      >
+      <div class="gap-10"></div>
+      <label for="question5_option1">
+        <input
+          type="radio"
+          id="question5_option1"
+          name="question5"
+          value="option1"
+          onchange="checkForm()"
+        />인기곡</label
+      >
+
+      <label for="question5_option2">
+        <input
+          type="radio"
+          id="question5_option2"
+          name="question5"
+          value="option2"
+          onchange="checkForm()"
+        />분위기에 맞는 음악</label
+      >
+      <label for="question5_option3">
+        <input
+          type="radio"
+          id="question5_option3"
+          name="question5"
+          value="option3"
+          onchange="checkForm()"
+        />나의 취향을 공유하고 말거야!!</label
+      >
+      <div class="gap-10"></div>
+      <label for="question6"
+        >6.여유로운 시간에 음악을 들을 때 어떤 분위기를 선호하나요?</label
+      >
+      <div class="gap-10"></div>
+      <label for="question6_option1">
+        <input
+          type="radio"
+          id="question6_option1"
+          name="question6"
+          value="option1"
+          onchange="checkForm()"
+        />힐링되는 음악</label
+      >
+
+      <label for="question6_option2">
+        <input
+          type="radio"
+          id="question6_option2"
+          name="question6"
+          value="option2"
+          onchange="checkForm()"
+        />흥겨운 음악</label
+      >
+
+      <label for="question6_option3"
+        ><input
+          type="radio"
+          id="question6_option3"
+          name="question6"
+          value="option3"
+          onchange="checkForm()"
+        />조용한 음악</label
+      >
+      <input type="submit" value="Submit" id="submitBtn" disabled />
+    </form>
+  </body>
+</html>
